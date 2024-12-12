@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>C:\Users\Lenovo\OneDrive\Documents\latihan dan penugasan\uas demo.c</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="generator" content="Code::Blocks Exporter plugin" />
+<style type="text/css">
+<!--
+body { color: #000000; background-color: #FFFFFF; }
+.style11 { color: #000000; background-color: #FFFFFF; }
+.style64 { color: #C8C8C8; }
+.style72 { color: #C8C8C8; }
+.style75 { color: #C8C8C8; }
+.style1 { color: #9898D9; }
+.style23 { color: #9898D9; }
+.style65 { color: #C0C0C0; }
+.style87 { color: #C0C0C0; }
+.style2 { color: #9898D9; }
+.style66 { color: #C0C0C0; }
+.style3 { color: #8080FF; font-weight: bold; }
+.style24 { color: #8080FF; font-weight: bold; }
+.style67 { color: #AAAAF0; font-weight: bold; }
+.style88 { color: #AAAAF0; font-weight: bold; }
+.style15 { color: #8080FF; font-weight: bold; }
+.style79 { color: #AAAAF0; font-weight: bold; }
+.style17 { color: #008080; }
+.style81 { color: #6B9999; }
+.style18 { color: #800000; }
+.style82 { color: #AC5959; }
+.style4 { color: #F000F0; }
+.style68 { color: #F0C8F0; }
+.style5 { color: #0000A0; font-weight: bold; }
+.style69 { color: #8787C8; font-weight: bold; }
+.style16 { color: #00A000; font-weight: bold; }
+.style80 { color: #9AC89A; font-weight: bold; }
+.style19 { color: #BE00BE; font-weight: bold; }
+.style83 { color: #BE89BE; font-weight: bold; }
+.style6 { color: #0000FF; }
+.style12 { color: #0000FF; }
+.style20 { color: #0000FF; }
+.style70 { color: #BEBEFF; }
+.style76 { color: #BEBEFF; }
+.style7 { color: #E0A000; }
+.style71 { color: #E0CE9F; }
+.style8 { color: #000000; }
+.style9 { color: #00A000; }
+.style73 { color: #84A084; }
+.style10 { color: #FF0000; }
+.style74 { color: #FFC8C8; }
+.style50 { color: #404080; font-style: italic; }
+.style114 { color: #8585AC; font-style: italic; }
+.style34 { color: #000000; background-color: #80FFFF; font-weight: bold; }
+.style35 { color: #FFFFFF; background-color: #FF0000; font-weight: bold; }
+.style37 { color: #373737; }
+--></style></head>
+<body>
+<pre>
+<code><span style="font: 8pt Courier New;"><span class="body">  1 </span><span class="style9">#include &lt;stdio.h&gt;</span>
+<span class="body">  2  </span><span class="style9">#include &lt;string.h&gt;</span>
+<span class="body">  3  </span><span class="style9">#include &lt;stdlib.h&gt;</span>
+<span class="body">  4  </span><span class="style9">#include &lt;windows.h&gt; </span><span class="style2">// Untuk Sleep function di Windows</span>
+<span class="body">  5  </span><span class="style9">#define TARIF_KERETA_PER_KM 1000</span>
+<span class="body">  6  </span><span class="style9">#define MAKS_RUTE 5</span>
+<span class="body">  7  </span><span class="style9">#define MAKS_JADWAL 3</span>
+<span class="body">  8  </span><span class="style5">typedef struct </span><span class="style10">{</span>
+<span class="body">  9      </span><span class="style5">char </span><span class="style11">rute</span><span class="style10">[</span><span class="style4">50</span><span class="style10">];  </span><span class="style2">// Nama rute</span>
+<span class="body"> 10      </span><span class="style5">int </span><span class="style11">jarak</span><span class="style10">;      </span><span class="style2">// Jarak (km)</span>
+<span class="body"> 11      </span><span class="style5">int </span><span class="style11">biaya</span><span class="style10">;      </span><span class="style2">// Biaya perjalanan</span>
+<span class="body"> 12      </span><span class="style5">char </span><span class="style11">jadwal</span><span class="style10">[</span><span class="style11">MAKS_JADWAL</span><span class="style10">][</span><span class="style4">10</span><span class="style10">]; </span><span class="style2">// Jadwal keberangkatan</span>
+<span class="body"> 13  </span><span class="style10">} </span><span class="style11">Kereta</span><span class="style10">;</span>
+<span class="body"> 14  </span>
+<span class="body"> 15  </span><span class="style2">// Prototipe fungsi</span>
+<span class="body"> 16  </span><span class="style5">void </span><span class="style11">tampilkanRuteDenganJadwal</span><span class="style10">(</span><span class="style11">Kereta rute</span><span class="style10">[], </span><span class="style5">int </span><span class="style11">jumlah</span><span class="style10">);</span>
+<span class="body"> 17  </span><span class="style5">int </span><span class="style11">pilihRute</span><span class="style10">(</span><span class="style11">Kereta rute</span><span class="style10">[], </span><span class="style5">int </span><span class="style11">jumlah</span><span class="style10">, </span><span class="style5">int </span><span class="style10">*</span><span class="style11">pilihJadwal</span><span class="style10">);</span>
+<span class="body"> 18  </span><span class="style5">void </span><span class="style11">cetakStruk</span><span class="style10">(</span><span class="style11">Kereta rute</span><span class="style10">, </span><span class="style5">char </span><span class="style11">jadwal</span><span class="style10">[], </span><span class="style5">int </span><span class="style11">jumlahTiket</span><span class="style10">);</span>
+<span class="body"> 19  </span><span class="style5">void </span><span class="style11">prosesPembayaran</span><span class="style10">(</span><span class="style5">int </span><span class="style11">totalBiaya</span><span class="style10">);</span>
+<span class="body"> 20  </span><span class="style5">void </span><span class="style11">opsiSetelahPembayaran</span><span class="style10">(</span><span class="style5">int </span><span class="style11">totalBiaya</span><span class="style10">);</span>
+<span class="body"> 21  </span><span class="style5">void </span><span class="style11">hubungiCustomerService</span><span class="style10">();</span>
+<span class="body"> 22  </span><span class="style5">void </span><span class="style11">clearScreen</span><span class="style10">(</span><span class="style5">int </span><span class="style11">seconds</span><span class="style10">); </span><span class="style2">// Fungsi untuk membersihkan layar setelah beberapa detik</span>
+<span class="body"> 23  </span><span class="style5">void </span><span class="style11">setColor</span><span class="style10">(</span><span class="style5">int </span><span class="style11">color</span><span class="style10">); </span><span class="style2">// Fungsi untuk mengatur warna teks</span>
+<span class="body"> 24  </span>
+<span class="body"> 25  </span><span class="style5">int </span><span class="style11">main</span><span class="style10">() {</span>
+<span class="body"> 26      </span><span class="style11">Kereta rute</span><span class="style10">[</span><span class="style11">MAKS_RUTE</span><span class="style10">] = {</span>
+<span class="body"> 27          </span><span class="style10">{</span><span class="style6">"Jakarta - Bandung"</span><span class="style10">, </span><span class="style4">150</span><span class="style10">, </span><span class="style4">0</span><span class="style10">, {</span><span class="style6">"08:00"</span><span class="style10">, </span><span class="style6">"12:00"</span><span class="style10">, </span><span class="style6">"16:00"</span><span class="style10">}},</span>
+<span class="body"> 28          </span><span class="style10">{</span><span class="style6">"Bandung - Surabaya"</span><span class="style10">, </span><span class="style4">600</span><span class="style10">, </span><span class="style4">0</span><span class="style10">, {</span><span class="style6">"07:00"</span><span class="style10">, </span><span class="style6">"13:00"</span><span class="style10">, </span><span class="style6">"19:00"</span><span class="style10">}},</span>
+<span class="body"> 29          </span><span class="style10">{</span><span class="style6">"Surabaya - Yogyakarta"</span><span class="style10">, </span><span class="style4">400</span><span class="style10">, </span><span class="style4">0</span><span class="style10">, {</span><span class="style6">"06:30"</span><span class="style10">, </span><span class="style6">"11:30"</span><span class="style10">, </span><span class="style6">"18:30"</span><span class="style10">}},</span>
+<span class="body"> 30          </span><span class="style10">{</span><span class="style6">"Jakarta - Semarang"</span><span class="style10">, </span><span class="style4">300</span><span class="style10">, </span><span class="style4">0</span><span class="style10">, {</span><span class="style6">"09:00"</span><span class="style10">, </span><span class="style6">"14:00"</span><span class="style10">, </span><span class="style6">"20:00"</span><span class="style10">}},</span>
+<span class="body"> 31          </span><span class="style10">{</span><span class="style6">"Semarang - Solo"</span><span class="style10">, </span><span class="style4">120</span><span class="style10">, </span><span class="style4">0</span><span class="style10">, {</span><span class="style6">"05:00"</span><span class="style10">, </span><span class="style6">"10:00"</span><span class="style10">, </span><span class="style6">"15:00"</span><span class="style10">}}</span>
+<span class="body"> 32      </span><span class="style10">};</span>
+<span class="body"> 33  </span>
+<span class="body"> 34      </span><span class="style2">// Hitung biaya perjalanan untuk setiap rute</span>
+<span class="body"> 35      </span><span class="style5">for </span><span class="style10">(</span><span class="style5">int </span><span class="style11">i </span><span class="style10">= </span><span class="style4">0</span><span class="style10">; </span><span class="style11">i </span><span class="style10">&lt; </span><span class="style11">MAKS_RUTE</span><span class="style10">; </span><span class="style11">i</span><span class="style10">++) {</span>
+<span class="body"> 36          </span><span class="style11">rute</span><span class="style10">[</span><span class="style11">i</span><span class="style10">].</span><span class="style11">biaya </span><span class="style10">= </span><span class="style11">rute</span><span class="style10">[</span><span class="style11">i</span><span class="style10">].</span><span class="style11">jarak </span><span class="style10">* </span><span class="style11">TARIF_KERETA_PER_KM</span><span class="style10">;</span>
+<span class="body"> 37      </span><span class="style10">}</span>
+<span class="body"> 38  </span>
+<span class="body"> 39      </span><span class="style5">int </span><span class="style11">pilihan</span><span class="style10">, </span><span class="style11">jumlahTiket</span><span class="style10">, </span><span class="style11">pilihJadwal</span><span class="style10">;</span>
+<span class="body"> 40  </span>
+<span class="body"> 41      </span><span class="style5">do </span><span class="style10">{</span>
+<span class="body"> 42          </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">10</span><span class="style10">); </span><span class="style2">// Mengatur warna teks hijau</span>
+<span class="body"> 43          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\n----- Aplikasi Pemesanan Tiket Kereta ------\n"</span><span class="style10">);</span>
+<span class="body"> 44          </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">15</span><span class="style10">); </span><span class="style2">// Mengatur warna teks putih</span>
+<span class="body"> 45          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"1. Tampilkan daftar rute dan jadwal\n"</span><span class="style10">);</span>
+<span class="body"> 46          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"2. Pesan tiket kereta\n"</span><span class="style10">);</span>
+<span class="body"> 47          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"0. Keluar\n"</span><span class="style10">);</span>
+<span class="body"> 48          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Pilih menu: "</span><span class="style10">);</span>
+<span class="body"> 49          </span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%d"</span><span class="style10">, &amp;</span><span class="style11">pilihan</span><span class="style10">);</span>
+<span class="body"> 50  </span>
+<span class="body"> 51          </span><span class="style11">clearScreen</span><span class="style10">(</span><span class="style4">1</span><span class="style10">); </span><span class="style2">// Bersihkan layar setelah memilih menu</span>
+<span class="body"> 52  </span>
+<span class="body"> 53          </span><span class="style5">switch </span><span class="style10">(</span><span class="style11">pilihan</span><span class="style10">) {</span>
+<span class="body"> 54              </span><span class="style5">case </span><span class="style4">1</span><span class="style10">:</span>
+<span class="body"> 55                  </span><span class="style11">tampilkanRuteDenganJadwal</span><span class="style10">(</span><span class="style11">rute</span><span class="style10">, </span><span class="style11">MAKS_RUTE</span><span class="style10">);</span>
+<span class="body"> 56                  </span><span class="style5">break</span><span class="style10">;</span>
+<span class="body"> 57              </span><span class="style5">case </span><span class="style4">2</span><span class="style10">: {</span>
+<span class="body"> 58                  </span><span class="style5">int </span><span class="style11">indeks </span><span class="style10">= </span><span class="style11">pilihRute</span><span class="style10">(</span><span class="style11">rute</span><span class="style10">, </span><span class="style11">MAKS_RUTE</span><span class="style10">, &amp;</span><span class="style11">pilihJadwal</span><span class="style10">);</span>
+<span class="body"> 59                  </span><span class="style5">if </span><span class="style10">(</span><span class="style11">indeks </span><span class="style10">!= -</span><span class="style4">1</span><span class="style10">) {</span>
+<span class="body"> 60                      </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Masukkan jumlah tiket: "</span><span class="style10">);</span>
+<span class="body"> 61                      </span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%d"</span><span class="style10">, &amp;</span><span class="style11">jumlahTiket</span><span class="style10">);</span>
+<span class="body"> 62                      </span><span class="style11">cetakStruk</span><span class="style10">(</span><span class="style11">rute</span><span class="style10">[</span><span class="style11">indeks</span><span class="style10">], </span><span class="style11">rute</span><span class="style10">[</span><span class="style11">indeks</span><span class="style10">].</span><span class="style11">jadwal</span><span class="style10">[</span><span class="style11">pilihJadwal</span><span class="style10">], </span><span class="style11">jumlahTiket</span><span class="style10">);</span>
+<span class="body"> 63                      </span><span class="style11">prosesPembayaran</span><span class="style10">(</span><span class="style11">rute</span><span class="style10">[</span><span class="style11">indeks</span><span class="style10">].</span><span class="style11">biaya </span><span class="style10">* </span><span class="style11">jumlahTiket</span><span class="style10">);</span>
+<span class="body"> 64                  </span><span class="style10">}</span>
+<span class="body"> 65                  </span><span class="style5">break</span><span class="style10">;</span>
+<span class="body"> 66              </span><span class="style10">}</span>
+<span class="body"> 67              </span><span class="style5">case </span><span class="style4">0</span><span class="style10">:</span>
+<span class="body"> 68                  </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">12</span><span class="style10">); </span><span class="style2">// Mengatur warna teks merah untuk keluar</span>
+<span class="body"> 69                  </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Keluar dari program. Terima kasih!\n"</span><span class="style10">);</span>
+<span class="body"> 70                  </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">15</span><span class="style10">); </span><span class="style2">// Kembalikan ke warna default</span>
+<span class="body"> 71                  </span><span class="style5">break</span><span class="style10">;</span>
+<span class="body"> 72              </span><span class="style5">default</span><span class="style10">:</span>
+<span class="body"> 73                  </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Pilihan tidak valid. Coba lagi.\n"</span><span class="style10">);</span>
+<span class="body"> 74          </span><span class="style10">}</span>
+<span class="body"> 75      </span><span class="style10">} </span><span class="style5">while </span><span class="style10">(</span><span class="style11">pilihan </span><span class="style10">!= </span><span class="style4">0</span><span class="style10">);</span>
+<span class="body"> 76  </span>
+<span class="body"> 77      </span><span class="style5">return </span><span class="style4">0</span><span class="style10">;</span>
+<span class="body"> 78  </span><span class="style10">}</span>
+<span class="body"> 79  </span>
+<span class="body"> 80  </span><span class="style2">// Fungsi untuk menampilkan daftar rute beserta jadwalnya</span>
+<span class="body"> 81  </span><span class="style5">void </span><span class="style11">tampilkanRuteDenganJadwal</span><span class="style10">(</span><span class="style11">Kereta rute</span><span class="style10">[], </span><span class="style5">int </span><span class="style11">jumlah</span><span class="style10">) {</span>
+<span class="body"> 82      </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">11</span><span class="style10">); </span><span class="style2">// Mengatur warna teks biru terang</span>
+<span class="body"> 83      </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\n------------ DAFTAR RUTE KERETA ------------\n"</span><span class="style10">);</span>
+<span class="body"> 84      </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">15</span><span class="style10">); </span><span class="style2">// Mengatur warna teks putih</span>
+<span class="body"> 85      </span><span class="style5">for </span><span class="style10">(</span><span class="style5">int </span><span class="style11">i </span><span class="style10">= </span><span class="style4">0</span><span class="style10">; </span><span class="style11">i </span><span class="style10">&lt; </span><span class="style11">jumlah</span><span class="style10">; </span><span class="style11">i</span><span class="style10">++) {</span>
+<span class="body"> 86          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"%d. %s\n"</span><span class="style10">, </span><span class="style11">i </span><span class="style10">+ </span><span class="style4">1</span><span class="style10">, </span><span class="style11">rute</span><span class="style10">[</span><span class="style11">i</span><span class="style10">].</span><span class="style11">rute</span><span class="style10">);</span>
+<span class="body"> 87          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"   o Jarak: %d km\n"</span><span class="style10">, </span><span class="style11">rute</span><span class="style10">[</span><span class="style11">i</span><span class="style10">].</span><span class="style11">jarak</span><span class="style10">);</span>
+<span class="body"> 88          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"   o Biaya: Rp %d\n"</span><span class="style10">, </span><span class="style11">rute</span><span class="style10">[</span><span class="style11">i</span><span class="style10">].</span><span class="style11">biaya</span><span class="style10">);</span>
+<span class="body"> 89          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"   o Jadwal: "</span><span class="style10">);</span>
+<span class="body"> 90          </span><span class="style5">for </span><span class="style10">(</span><span class="style5">int </span><span class="style11">j </span><span class="style10">= </span><span class="style4">0</span><span class="style10">; </span><span class="style11">j </span><span class="style10">&lt; </span><span class="style11">MAKS_JADWAL</span><span class="style10">; </span><span class="style11">j</span><span class="style10">++) {</span>
+<span class="body"> 91              </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"%s "</span><span class="style10">, </span><span class="style11">rute</span><span class="style10">[</span><span class="style11">i</span><span class="style10">].</span><span class="style11">jadwal</span><span class="style10">[</span><span class="style11">j</span><span class="style10">]);</span>
+<span class="body"> 92          </span><span class="style10">}</span>
+<span class="body"> 93          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\n"</span><span class="style10">);</span>
+<span class="body"> 94      </span><span class="style10">}</span>
+<span class="body"> 95      </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"--------------------------------------------\n"</span><span class="style10">);</span>
+<span class="body"> 96  </span><span class="style10">}</span>
+<span class="body"> 97  </span>
+<span class="body"> 98  </span><span class="style2">// Fungsi untuk memilih rute dan jadwal</span>
+<span class="body"> 99  </span><span class="style5">int </span><span class="style11">pilihRute</span><span class="style10">(</span><span class="style11">Kereta rute</span><span class="style10">[], </span><span class="style5">int </span><span class="style11">jumlah</span><span class="style10">, </span><span class="style5">int </span><span class="style10">*</span><span class="style11">pilihJadwal</span><span class="style10">) {</span>
+<span class="body">100      </span><span class="style5">int </span><span class="style11">pilihan</span><span class="style10">;</span>
+<span class="body">101      </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">10</span><span class="style10">); </span><span class="style2">// Mengatur warna teks hijau</span>
+<span class="body">102      </span><span class="style11">tampilkanRuteDenganJadwal</span><span class="style10">(</span><span class="style11">rute</span><span class="style10">, </span><span class="style11">jumlah</span><span class="style10">);</span>
+<span class="body">103      </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">15</span><span class="style10">); </span><span class="style2">// Mengatur warna teks putih</span>
+<span class="body">104      </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Pilih rute (1-%d): "</span><span class="style10">, </span><span class="style11">jumlah</span><span class="style10">);</span>
+<span class="body">105      </span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%d"</span><span class="style10">, &amp;</span><span class="style11">pilihan</span><span class="style10">);</span>
+<span class="body">106  </span>
+<span class="body">107      </span><span class="style5">if </span><span class="style10">(</span><span class="style11">pilihan </span><span class="style10">&gt;= </span><span class="style4">1 </span><span class="style10">&amp;&amp; </span><span class="style11">pilihan </span><span class="style10">&lt;= </span><span class="style11">jumlah</span><span class="style10">) {</span>
+<span class="body">108          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Pilih jadwal keberangkatan (1-%d): "</span><span class="style10">, </span><span class="style11">MAKS_JADWAL</span><span class="style10">);</span>
+<span class="body">109          </span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%d"</span><span class="style10">, </span><span class="style11">pilihJadwal</span><span class="style10">);</span>
+<span class="body">110          </span><span class="style5">if </span><span class="style10">(*</span><span class="style11">pilihJadwal </span><span class="style10">&gt;= </span><span class="style4">1 </span><span class="style10">&amp;&amp; *</span><span class="style11">pilihJadwal </span><span class="style10">&lt;= </span><span class="style11">MAKS_JADWAL</span><span class="style10">) {</span>
+<span class="body">111              </span><span class="style5">return </span><span class="style11">pilihan </span><span class="style10">- </span><span class="style4">1</span><span class="style10">; </span><span class="style2">// Indeks array</span>
+<span class="body">112          </span><span class="style10">} </span><span class="style5">else </span><span class="style10">{</span>
+<span class="body">113              </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">12</span><span class="style10">); </span><span class="style2">// Mengatur warna teks merah untuk error</span>
+<span class="body">114              </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Jadwal tidak valid.\n"</span><span class="style10">);</span>
+<span class="body">115              </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">15</span><span class="style10">); </span><span class="style2">// Kembalikan ke warna default</span>
+<span class="body">116              </span><span class="style5">return </span><span class="style10">-</span><span class="style4">1</span><span class="style10">;</span>
+<span class="body">117          </span><span class="style10">}</span>
+<span class="body">118      </span><span class="style10">} </span><span class="style5">else </span><span class="style10">{</span>
+<span class="body">119          </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">12</span><span class="style10">); </span><span class="style2">// Mengatur warna teks merah untuk error</span>
+<span class="body">120          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Rute tidak valid.\n"</span><span class="style10">);</span>
+<span class="body">121          </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">15</span><span class="style10">); </span><span class="style2">// Kembalikan ke warna default</span>
+<span class="body">122          </span><span class="style5">return </span><span class="style10">-</span><span class="style4">1</span><span class="style10">;</span>
+<span class="body">123      </span><span class="style10">}</span>
+<span class="body">124  </span><span class="style10">}</span>
+<span class="body">125  </span>
+<span class="body">126  </span><span class="style2">// Fungsi untuk mencetak struk tiket</span>
+<span class="body">127  </span><span class="style5">void </span><span class="style11">cetakStruk</span><span class="style10">(</span><span class="style11">Kereta rute</span><span class="style10">, </span><span class="style5">char </span><span class="style11">jadwal</span><span class="style10">[], </span><span class="style5">int </span><span class="style11">jumlahTiket</span><span class="style10">) {</span>
+<span class="body">128      </span><span class="style5">int </span><span class="style11">totalBiaya </span><span class="style10">= </span><span class="style11">rute</span><span class="style10">.</span><span class="style11">biaya </span><span class="style10">* </span><span class="style11">jumlahTiket</span><span class="style10">;</span>
+<span class="body">129      </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">14</span><span class="style10">); </span><span class="style2">// Mengatur warna teks kuning</span>
+<span class="body">130      </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\n------------ STRUK TIKET KERETA ------------\n"</span><span class="style10">);</span>
+<span class="body">131      </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">15</span><span class="style10">); </span><span class="style2">// Mengatur warna teks putih</span>
+<span class="body">132      </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Rute           : %s\n"</span><span class="style10">, </span><span class="style11">rute</span><span class="style10">.</span><span class="style11">rute</span><span class="style10">);</span>
+<span class="body">133      </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Jadwal         : %s\n"</span><span class="style10">, </span><span class="style11">jadwal</span><span class="style10">);</span>
+<span class="body">134      </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Jarak          : %d km\n"</span><span class="style10">, </span><span class="style11">rute</span><span class="style10">.</span><span class="style11">jarak</span><span class="style10">);</span>
+<span class="body">135      </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Biaya per tiket: Rp %d\n"</span><span class="style10">, </span><span class="style11">rute</span><span class="style10">.</span><span class="style11">biaya</span><span class="style10">);</span>
+<span class="body">136      </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Jumlah tiket   : %d\n"</span><span class="style10">, </span><span class="style11">jumlahTiket</span><span class="style10">);</span>
+<span class="body">137      </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Total biaya    : Rp %d\n"</span><span class="style10">, </span><span class="style11">totalBiaya</span><span class="style10">);</span>
+<span class="body">138      </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"--------------------------------------------\n"</span><span class="style10">);</span>
+<span class="body">139  </span><span class="style10">}</span>
+<span class="body">140  </span>
+<span class="body">141  </span><span class="style2">// Fungsi untuk proses pembayaran</span>
+<span class="body">142  </span><span class="style5">void </span><span class="style11">prosesPembayaran</span><span class="style10">(</span><span class="style5">int </span><span class="style11">totalBiaya</span><span class="style10">) {</span>
+<span class="body">143      </span><span class="style5">int </span><span class="style11">metode</span><span class="style10">;</span>
+<span class="body">144      </span><span class="style5">do </span><span class="style10">{</span>
+<span class="body">145          </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">10</span><span class="style10">); </span><span class="style2">// Mengatur warna teks hijau</span>
+<span class="body">146          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\n--- Proses Pembayaran ---\n"</span><span class="style10">);</span>
+<span class="body">147          </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">15</span><span class="style10">); </span><span class="style2">// Mengatur warna teks putih</span>
+<span class="body">148          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Total yang harus dibayar: Rp %d\n"</span><span class="style10">, </span><span class="style11">totalBiaya</span><span class="style10">);</span>
+<span class="body">149          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Pilih metode pembayaran:\n"</span><span class="style10">);</span>
+<span class="body">150          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"1. Transfer Bank\n"</span><span class="style10">);</span>
+<span class="body">151          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"2. Virtual Account\n"</span><span class="style10">);</span>
+<span class="body">152          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"3. Hubungi Customer Service untuk bantuan\n"</span><span class="style10">);</span>
+<span class="body">153          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Pilih metode (1-3): "</span><span class="style10">);</span>
+<span class="body">154          </span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%d"</span><span class="style10">, &amp;</span><span class="style11">metode</span><span class="style10">);</span>
+<span class="body">155  </span>
+<span class="body">156          </span><span class="style5">switch </span><span class="style10">(</span><span class="style11">metode</span><span class="style10">) {</span>
+<span class="body">157              </span><span class="style5">case </span><span class="style4">1</span><span class="style10">:</span>
+<span class="body">158                  </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">10</span><span class="style10">); </span><span class="style2">// Mengatur warna teks hijau</span>
+<span class="body">159                  </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Silakan transfer ke rekening berikut:\n"</span><span class="style10">);</span>
+<span class="body">160                  </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Bank: BNI\n"</span><span class="style10">);</span>
+<span class="body">161                  </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Nomor Rekening: 1234567890\n"</span><span class="style10">);</span>
+<span class="body">162                  </span><span class="style5">break</span><span class="style10">;</span>
+<span class="body">163              </span><span class="style5">case </span><span class="style4">2</span><span class="style10">:</span>
+<span class="body">164                  </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">10</span><span class="style10">); </span><span class="style2">// Mengatur warna teks hijau</span>
+<span class="body">165                  </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Virtual Account:\n"</span><span class="style10">);</span>
+<span class="body">166                  </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Bank Mandiri: 9876543210\n"</span><span class="style10">);</span>
+<span class="body">167                  </span><span class="style5">break</span><span class="style10">;</span>
+<span class="body">168              </span><span class="style5">case </span><span class="style4">3</span><span class="style10">:</span>
+<span class="body">169                  </span><span class="style11">hubungiCustomerService</span><span class="style10">();</span>
+<span class="body">170                  </span><span class="style5">break</span><span class="style10">;</span>
+<span class="body">171              </span><span class="style5">default</span><span class="style10">:</span>
+<span class="body">172                  </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">12</span><span class="style10">); </span><span class="style2">// Mengatur warna teks merah untuk error</span>
+<span class="body">173                  </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Metode tidak valid. Coba lagi.\n"</span><span class="style10">);</span>
+<span class="body">174                  </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">15</span><span class="style10">); </span><span class="style2">// Kembalikan ke warna default</span>
+<span class="body">175          </span><span class="style10">}</span>
+<span class="body">176      </span><span class="style10">} </span><span class="style5">while </span><span class="style10">(</span><span class="style11">metode </span><span class="style10">&lt; </span><span class="style4">1 </span><span class="style10">|| </span><span class="style11">metode </span><span class="style10">&gt; </span><span class="style4">3</span><span class="style10">);</span>
+<span class="body">177      </span><span class="style11">opsiSetelahPembayaran</span><span class="style10">(</span><span class="style11">totalBiaya</span><span class="style10">);</span>
+<span class="body">178  </span><span class="style10">}</span>
+<span class="body">179  </span>
+<span class="body">180  </span><span class="style2">// Fungsi untuk opsi setelah pembayaran</span>
+<span class="body">181  </span><span class="style5">void </span><span class="style11">opsiSetelahPembayaran</span><span class="style10">(</span><span class="style5">int </span><span class="style11">totalBiaya</span><span class="style10">) {</span>
+<span class="body">182      </span><span class="style5">int </span><span class="style11">opsi</span><span class="style10">;</span>
+<span class="body">183      </span><span class="style5">do </span><span class="style10">{</span>
+<span class="body">184          </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">10</span><span class="style10">); </span><span class="style2">// Mengatur warna teks hijau</span>
+<span class="body">185          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\n--- Opsi Setelah Pembayaran ---\n"</span><span class="style10">);</span>
+<span class="body">186          </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">15</span><span class="style10">); </span><span class="style2">// Mengatur warna teks putih</span>
+<span class="body">187          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"1. Ganti Metode Pembayaran\n"</span><span class="style10">);</span>
+<span class="body">188          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"2. Hubungi Customer Service\n"</span><span class="style10">);</span>
+<span class="body">189          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"3. Keluar dari Program dengan Pembatalan Pemesanan Tiket\n"</span><span class="style10">);</span>
+<span class="body">190          </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Pilih opsi (1-3): "</span><span class="style10">);</span>
+<span class="body">191          </span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%d"</span><span class="style10">, &amp;</span><span class="style11">opsi</span><span class="style10">);</span>
+<span class="body">192  </span>
+<span class="body">193          </span><span class="style5">switch </span><span class="style10">(</span><span class="style11">opsi</span><span class="style10">) {</span>
+<span class="body">194              </span><span class="style5">case </span><span class="style4">1</span><span class="style10">:</span>
+<span class="body">195                  </span><span class="style11">prosesPembayaran</span><span class="style10">(</span><span class="style11">totalBiaya</span><span class="style10">);</span>
+<span class="body">196                  </span><span class="style5">break</span><span class="style10">;</span>
+<span class="body">197              </span><span class="style5">case </span><span class="style4">2</span><span class="style10">:</span>
+<span class="body">198                  </span><span class="style11">hubungiCustomerService</span><span class="style10">();</span>
+<span class="body">199                  </span><span class="style5">break</span><span class="style10">;</span>
+<span class="body">200              </span><span class="style5">case </span><span class="style4">3</span><span class="style10">:</span>
+<span class="body">201                  </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">12</span><span class="style10">); </span><span class="style2">// Mengatur warna teks merah untuk keluar</span>
+<span class="body">202                  </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\nPembatalan Pemesanan Tiket...\n"</span><span class="style10">);</span>
+<span class="body">203                  </span><span class="style11">Sleep</span><span class="style10">(</span><span class="style4">2</span><span class="style10">); </span><span class="style2">// Tunggu beberapa detik untuk tampilan pembatalan</span>
+<span class="body">204                  </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">15</span><span class="style10">); </span><span class="style2">// Kembalikan ke warna default</span>
+<span class="body">205                  </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Pesanan tiket dibatalkan. Keluar dari program.\n"</span><span class="style10">);</span>
+<span class="body">206                  </span><span class="style11">exit</span><span class="style10">(</span><span class="style4">0</span><span class="style10">); </span><span class="style2">// Keluar dari program</span>
+<span class="body">207                  </span><span class="style5">break</span><span class="style10">;</span>
+<span class="body">208              </span><span class="style5">default</span><span class="style10">:</span>
+<span class="body">209                  </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">12</span><span class="style10">); </span><span class="style2">// Mengatur warna teks merah untuk error</span>
+<span class="body">210                  </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Opsi tidak valid. Coba lagi.\n"</span><span class="style10">);</span>
+<span class="body">211                  </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">15</span><span class="style10">); </span><span class="style2">// Kembalikan ke warna default</span>
+<span class="body">212          </span><span class="style10">}</span>
+<span class="body">213      </span><span class="style10">} </span><span class="style5">while </span><span class="style10">(</span><span class="style11">opsi </span><span class="style10">!= </span><span class="style4">3</span><span class="style10">); </span><span class="style2">// Akan keluar dari loop dan program jika opsi 3 dipilih</span>
+<span class="body">214  </span><span class="style10">}</span>
+<span class="body">215  </span>
+<span class="body">216  </span><span class="style2">// Fungsi untuk menghubungi customer service</span>
+<span class="body">217  </span><span class="style5">void </span><span class="style11">hubungiCustomerService</span><span class="style10">() {</span>
+<span class="body">218      </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">14</span><span class="style10">); </span><span class="style2">// Mengatur warna teks kuning</span>
+<span class="body">219      </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\nHubungi Customer Service:\n"</span><span class="style10">);</span>
+<span class="body">220      </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Telepon: 0800-123-456\n"</span><span class="style10">);</span>
+<span class="body">221      </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Email: support@kereta.com\n"</span><span class="style10">);</span>
+<span class="body">222      </span><span class="style11">setColor</span><span class="style10">(</span><span class="style4">15</span><span class="style10">); </span><span class="style2">// Mengembalikan warna default</span>
+<span class="body">223  </span><span class="style10">}</span>
+<span class="body">224  </span>
+<span class="body">225  </span><span class="style2">// Fungsi untuk membersihkan layar setelah beberapa detik</span>
+<span class="body">226  </span><span class="style5">void </span><span class="style11">clearScreen</span><span class="style10">(</span><span class="style5">int </span><span class="style11">seconds</span><span class="style10">) {</span>
+<span class="body">227      </span><span class="style11">Sleep</span><span class="style10">(</span><span class="style11">seconds </span><span class="style10">* </span><span class="style4">1000</span><span class="style10">); </span><span class="style2">// Membersihkan layar setelah sekian detik</span>
+<span class="body">228  </span><span class="style10">}</span>
+<span class="body">229  </span>
+<span class="body">230  </span><span class="style2">// Fungsi untuk mengatur warna teks</span>
+<span class="body">231  </span><span class="style5">void </span><span class="style11">setColor</span><span class="style10">(</span><span class="style5">int </span><span class="style11">color</span><span class="style10">) {</span>
+<span class="body">232      </span><span class="style11">SetConsoleTextAttribute</span><span class="style10">(</span><span class="style11">GetStdHandle</span><span class="style10">(</span><span class="style11">STD_OUTPUT_HANDLE</span><span class="style10">), </span><span class="style11">color</span><span class="style10">);</span>
+<span class="body">233  </span><span class="style10">}</span></span>
+</code></pre>
+</body>
+</html>
